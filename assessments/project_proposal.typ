@@ -42,35 +42,115 @@
 // 150 WORDS
 = Problem Definition
 
-PwC UK operates a hybrid working model, so daily office attendance varies considerably by site and weekday. Facilities Management (FM) uses attendance to plan catering and cleaning, and Real Estate uses it to allocate space across teams. With little forward visibility, FM risks food waste, mis-sized cleaning shifts and shortfalls on busy days.
+PwC UK operates a hybrid working model, so daily office attendance varies by site and weekday and cannot be inferred from desk allocations. Facilities Management (FM) uses attendance to plan catering and cleaning, and Real Estate uses it to allocate space. Without forward visibility, FM risks food waste, mis-sized cleaning shifts and shortfalls on busy days.
 
-Attendance is also shifted by external events such as bank holidays and rail strikes, which are currently logged through a manual form that is slow and misses events.
+Events such as bank holidays, rail strikes and internal events also shift attendance. These are logged in a manual form, but the log is historical and not systematically used to forecast attendance, even though many events are known in advance. Public events can be ingested automatically, while internal events will remain a manual input.
 
-The work sits within the Real Estate Data Analytics (REDA) team, whose Databricks lakehouse holds aggregated daily headcount per office. Forecasting is currently limited to Power BI's built-in forecast, which has not been validated. Without a validated forecast, FM cannot quantify the benefit of earlier planning, so any model must beat the heuristic of assuming attendance equals the same weekday last week.
+The work sits within the Real Estate Data Analytics (REDA) team, whose cloud data platform (Databricks) holds daily headcount totals per office. Forecasting is limited to the built-in forecast in Power BI, a reporting tool, which has not been checked against past attendance or compared with simple rules of thumb, so its accuracy is unknown. Any new model must beat the simple rule of assuming attendance equals the same weekday last week.
 
 // 100 WORDS
 = Project Aim and Objectives
 
-*Aim:* To develop and evaluate a 1-14 day office attendance forecasting pipeline that outperforms seasonal naive and Power BI baselines, ingests public disruption data automatically and provides calibrated prediction intervals.
+*Aim:* Develop and evaluate a 1-14 day office attendance forecasting pipeline that outperforms seasonal naive and Power BI baselines, collects public disruption data automatically and provides calibrated prediction intervals.
 
 *Objectives:*
-+ Agree KPIs, horizon and simulation assumptions.
-+ Automate ingestion of bank holidays, strikes and weather warnings into the existing medallion architecture.
++ Define KPIs, forecast horizon and simulation assumptions, generate a synthetic dataset mirroring current data structures.
++ Automate collection of bank holidays, strikes and weather warnings into a medallion architecture (raw to analysis-ready layers).
 + Benchmark seasonal naive and Power BI forecasts as baselines.
-+ Compare SARIMAX, LightGBM and XGBoost using rolling-origin validation per office, measured by MAE and MAPE.
++ Compare SARIMAX, LightGBM and XGBoost per office using rolling-origin validation, measured by MAE and MAPE.
++ Produce prediction intervals and report their coverage against the target level.
 + Identify which events most shift attendance using feature importance.
-+ Deliver a dashboard for FM and Real Estate stakeholders and estimate the potential planning benefit.
-+ Evaluate results and recommend next steps.
-*Future value (out of scope):* If validated on real data, a sufficiently accurate forecast could support exploring the subletting of floors in larger offices on low attendance days, similar to flexible workspace providers such as WeWork.
++ Deliver a dashboard for FM and Real Estate, evaluate results and recommend next steps.
+
+*Future value:* a validated forecast could support wider space optimisation decisions.
 
 // 150 WORDS
 = Research Plan
 
-Prior work will be identified through Google Scholar, IEEE Xplore, the ACM Digital Library, ScienceDirect and arXiv, accessed via the QMUL library, plus Databricks and MLflow documentation for implementation practice. Indicative search terms include "office occupancy forecasting", "hybrid work space utilisation", "time series forecasting exogenous events", "gradient boosting forecasting", "rolling origin evaluation", "conformal prediction time series" and "forecast accuracy metrics".
+Prior work will be identified through IEEE Xplore, the ACM Digital Library, ScienceDirect, Google Scholar and arXiv, plus Databricks and MLflow documentation for implementation practice. Searches are mapped to project objectives (@tbl-research), 
 
-Peer-reviewed work from 2018 onwards will be prioritised for methods, and post-2020 studies for hybrid working behaviour. Grey literature such as consultancy reports will be labelled and treated cautiously, with quality judged on peer review, data transparency and relevance to office settings. Findings will inform model selection, feature design, validation strategy and interval calibration.
+Peer-reviewed work from 2018 onwards is prioritised for methods, and from 2020 onwards for hybrid working. Sources are selected for transparent data and methods and relevance to daily or small series. A known limitation is that most occupancy research uses sensor data in other settings and no public attendance datasets exist, so findings will guide method choices rather than set expected accuracy. Grey literature, such as real estate and consultancy reports, is labelled and used for context only.
 
-AI tools may support discovery and summarisation, but every source will be read and verified directly and managed in mybib, with no AI-generated references.
+AI tools may support keyword generation and abstract screening, but all sources are read and verified directly. References are managed using mybib. Findings will inform model selection, validation, feature design and interval calibration.
+
+#show figure.where(kind: table): set figure.caption(position: top)
+#[
+  #set text(size: 9pt)
+  #figure(
+    table(
+      columns: (auto, 1.5fr, auto, 1.3fr),
+      align: left + top,
+      inset: 6pt,
+      stroke: (x, y) => if y == 0 { (bottom: 0.8pt) } else { (bottom: 0.4pt + luma(200)) },
+      fill: (x, y) => if y == 0 { luma(235) },
+      table.header[*Objective*][*Search terms*][*Sources*][*Purpose*],
+
+      [Simulation],
+      [
+        "synthetic time series generation" \
+        "hybrid working attendance patterns" \
+        "weekday effects office attendance"
+      ],
+      [Google Scholar, arXiv],
+      [Ground simulation assumptions and reduce the risk of unrealistic data],
+
+      [Platform],
+      [
+        "medallion architecture" \
+        "MLflow experiment tracking"
+      ],
+      [Databricks and MLflow documentation],
+      [Inform pipeline design and experiment tracking],
+
+      [Baselines],
+      [
+        "seasonal naive forecasting" \
+        "forecast benchmark" \
+        "M-competition"
+      ],
+      [IEEE Xplore, Google Scholar],
+      [Confirm baseline choice and standard evaluation metrics],
+
+      [Models],
+      [
+        "SARIMAX exogenous variables" \
+        "LightGBM time series" \
+        "XGBoost forecasting" \
+        "rolling-origin evaluation"
+      ],
+      [ScienceDirect, arXiv],
+      [Justify model selection and validation strategy],
+
+      [Events],
+      [
+        "calendar effects forecasting" \
+        "holiday effect forecasting" \
+        "special events demand forecasting" \
+        "feature importance time series"
+      ],
+      [ACM DL, IEEE Xplore],
+      [Decide which event features to include and how to encode them],
+
+      [Intervals],
+      [
+        "conformal prediction time series" \
+        "prediction interval calibration" \
+        "quantile regression forecasting"
+      ],
+      [arXiv, Google Scholar],
+      [Choose an interval method suitable for small daily series],
+
+      [Context],
+      [
+        "hybrid work office occupancy" \
+        "workplace utilisation post-2020"
+      ],
+      [Google Scholar, grey literature],
+      [Ground assumptions about attendance patterns],
+    ),
+    caption: [Literature search plan by project objective],
+  ) <tbl-research>
+]
 
 // 100 WORDS
 = Identification of Technologies, Tools and/or Datasets
@@ -90,10 +170,10 @@ AI tools may support discovery and summarisation, but every source will be read 
   columns: (auto, 1fr, auto),
   align: (left, left, left),
   [*Status*], [*Milestone*], [*Date*],
-  [Met], [Project options shortlisted], [Oct 2026],
-  [Planned], [Discuss options with manager and lecturer], [TBC],
-  [Planned], [Proposal submitted (IOT6002U 001)], [30 Oct 2026],
-  [Planned], [AI pitch video (IOT6000U)], [5 Nov 2026],
+  [Met], [Project options shortlisted], [10th Oct 2026],
+  [Met], [Discuss options with manager and lecturer], [25th Oct 2026],
+  [Met], [Finalise choice of project], [25th Oct 2026],
+  [Planned], [Proposal submitted], [30 Oct 2026],
   [Planned], [Project build and evaluation (16 weeks, assumed)], [Start TBC],
   [Planned], [Gateway, then project report (6000 words), presentation and KSB mapping], [TBC],
 )
