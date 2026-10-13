@@ -59,8 +59,9 @@ The work sits within the Real Estate Data Analytics (REDA) team, whose Databrick
 + Benchmark seasonal naive and Power BI forecasts as baselines.
 + Compare SARIMAX, LightGBM and XGBoost using rolling-origin validation per office, measured by MAE and MAPE.
 + Identify which events most shift attendance using feature importance.
-+ Deliver an FM dashboard and estimate the potential planning benefit.
++ Deliver a dashboard for FM and Real Estate stakeholders and estimate the potential planning benefit.
 + Evaluate results and recommend next steps.
+*Future value (out of scope):* If validated on real data, a sufficiently accurate forecast could support exploring the subletting of floors in larger offices on low attendance days, similar to flexible workspace providers such as WeWork.
 
 // 150 WORDS
 = Research Plan
