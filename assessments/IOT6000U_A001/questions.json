@@ -1,0 +1,98 @@
+[
+  {
+    "concept": "off_by_one",
+    "type": "predict_output",
+    "code": "nums = [3, 6, 9, 12]\ntotal = 0\nfor i in range(len(nums) - 1):\n    total += nums[i]\nprint(total)",
+    "llm_claimed_answer": "18",
+    "hints": [
+      "How many times does the loop body run, compared with the number of items in the list?",
+      "range(len(nums) - 1) ends one step early. Which index never gets visited?",
+      "The last element is never added. Sum the elements before it."
+    ],
+    "explanation": "range(len(nums) - 1) stops one index early, so the last element (12) is never added: 3 + 6 + 9."
+  },
+  {
+    "concept": "off_by_one",
+    "type": "predict_output",
+    "code": "count = 0\nfor i in range(2, 10, 3):\n    count += 1\nprint(count)",
+    "llm_claimed_answer": "3",
+    "hints": [
+      "Write out the values i takes, one by one.",
+      "Start at 2 and keep adding 3. Stop before you reach 10.",
+      "List the values i takes, then count how many there are."
+    ],
+    "explanation": "range(2, 10, 3) gives 2, 5, 8. The next value, 11, is past the end, so the loop runs three times."
+  },
+  {
+    "concept": "mutability",
+    "type": "predict_output",
+    "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",
+    "llm_claimed_answer": "4",
+    "hints": [
+      "What does b = a do: copy the list, or something else?",
+      "Think of a and b as two labels. How many lists exist?",
+      "If both labels point at one list, what does appending through b do to a?"
+    ],
+    "explanation": "b = a copies the reference, not the list. Both names point at the same list, so appending through b also changes a."
+  },
+  {
+    "concept": "mutability",
+    "type": "predict_output",
+    "code": "def add_item(item, bucket=[]):\n    bucket.append(item)\n    return bucket\n\nadd_item(\"x\")\nprint(add_item(\"y\"))",
+    "llm_claimed_answer": "['x', 'y']",
+    "hints": [
+      "When is the default value bucket=[] created: on each call, or once?",
+      "Does the second call start with an empty list?",
+      "The same list object is reused across calls. What was already added to it before the second call?"
+    ],
+    "explanation": "The default list is created once, when the function is defined, and reused. The first call adds 'x' and the second adds 'y' to the same list."
+  },
+  {
+    "concept": "scope",
+    "type": "predict_output",
+    "code": "x = 10\n\ndef change():\n    x = 20\n    return x\n\nchange()\nprint(x)",
+    "llm_claimed_answer": "10",
+    "hints": [
+      "Is the x inside change() the same variable as the x outside?",
+      "Assigning to a name inside a function makes it local by default.",
+      "The print runs outside the function. Which x does it see?"
+    ],
+    "explanation": "Assigning x inside the function creates a new local variable. The global x is untouched, so it is still 10."
+  },
+  {
+    "concept": "scope",
+    "type": "predict_output",
+    "code": "total = 0\n\ndef add(n):\n    global total\n    total += n\n\nadd(5)\nadd(7)\nprint(total)",
+    "llm_claimed_answer": "12",
+    "hints": [
+      "What does the global keyword change about total inside add()?",
+      "Is the function modifying the outer total or a local copy?",
+      "Each call adds to the same variable. Add the two arguments to the starting value."
+    ],
+    "explanation": "The global keyword lets the function change the module level total, so the two calls accumulate: 0 + 5 + 7."
+  },
+  {
+    "concept": "slicing",
+    "type": "predict_output",
+    "code": "word = \"comprehension\"\nprint(word[3:7])",
+    "llm_claimed_answer": "preh",
+    "hints": [
+      "Count the indexes of 'comprehension' starting from 0.",
+      "In a slice, is the end index included or excluded?",
+      "Write out the letters at index 3, 4, 5 and 6 only."
+    ],
+    "explanation": "Slices include the start index and exclude the end index, so word[3:7] takes the letters at indexes 3, 4, 5 and 6."
+  },
+  {
+    "concept": "slicing",
+    "type": "predict_output",
+    "code": "nums = [10, 20, 30, 40, 50]\nprint(nums[-2:])",
+    "llm_claimed_answer": "[40, 50]",
+    "hints": [
+      "What does a negative index mean?",
+      "-1 is the last element. Where does -2 point?",
+      "Slice from the second last element to the end, and list what is in there."
+    ],
+    "explanation": "Negative indexes count from the end. nums[-2:] starts at the second last element and runs to the end."
+  }
+]
