@@ -1,1 +1,9 @@
 .DS_Store
+*.class
+__pycache__/
+.pyre/
+.ipynb_checkpoints/
+*.class
+__pycache__/
+.pyre/
+.ipynb_checkpoints/
