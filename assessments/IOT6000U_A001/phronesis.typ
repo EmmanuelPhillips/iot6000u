@@ -1,6 +1,4 @@
-// iot6000u 001 presentation skeleton
-// compile: typst compile phronesis.typ
-// watch:   typst watch phronesis.typ
+// iot6000u 001 presentation
 // requires typst >= 0.14 (touying 0.7.4 is fetched on first compile)
 
 #import "@preview/touying:0.7.4": *
@@ -20,7 +18,8 @@
     text(size: 14pt, fill: gray)[#src],
   ),
 )
-#let card(head, body, src: none) = block(
+
+#let card(head, body, src: none, size: 16pt) = block(
   fill: accent.lighten(92%),
   inset: 10pt,
   radius: 6pt,
@@ -29,7 +28,7 @@
 )[
   #text(size: 20pt, weight: "bold", fill: accent)[#head] \
   #v(0.2em)
-  #text(size: 16pt)[#body]
+  #text(size: size)[#body]
   #if src != none [ \ #text(size: 14pt, fill: gray)[#src] ]
 ]
 
@@ -137,125 +136,127 @@ A daily chain of tasks on one codebase: fix, refactor, reason, extend
   card([2. LLM content], [Generates code, tests and bugs. Every task is run and validated before a learner sees it]),
   card([3. Guided hints], [Three levels that nudge without giving the answer, to keep you thinking]),
 )
-// ---------- 5. prototype and feasibility (1:15) ----------
+
+// ---------- 5. prototype and feasibility: architecture (1:00) ----------
 == Prototype and feasibility
 
 #block(width: 100%, height: 310pt)[
   #image("simple_diagram.png", width: 100%, height: 100%, fit: "contain")
 ]
 
-// ---------- 6. alternative comparison (1:00) ----------
+// ---------- 6. proof of concept demo (1:00) ----------
+== Proof of concept: validate, learn, adapt
 
+// ---------- 7. alternative comparison (0:45) ----------
 == Alternative solution comparison
 
-#set text(size: 17pt)
+#[
+  #set text(size: 17pt)
 
-A simpler approach: a curated question bank with rules-based personalisation
+  A simpler approach: a curated question bank with rules-based personalisation
 
-#v(0.4em)
+  #v(0.4em)
 
-#block(width: 100%)[
-  #set text(size: 14pt)
+  #block(width: 100%)[
+    #set text(size: 14pt)
 
-  #table(
-    columns: (1fr, 1.35fr, 1.35fr),
-    inset: 5pt,
-    align: (left, left, left),
-    stroke: (bottom: 0.5pt + gray),
+    #table(
+      columns: (1fr, 1.35fr, 1.35fr),
+      inset: 5pt,
+      align: (left, left, left),
+      stroke: (bottom: 0.5pt + gray),
 
-    [*Feature*],
-    [*Phronesis*],
-    [*Rules-based alternative*],
+      [*Feature*],
+      [*Phronesis*],
+      [*Rules-based alternative*],
 
-    [Learner model],
-    [Bayesian knowledge tracing],
-    [Fixed rules based on errors],
+      [Learner model],
+      [Bayesian knowledge tracing],
+      [Fixed rules based on errors],
 
-    [Question source],
-    [LLM-generated + curated],
-    [Curated question bank],
+      [Question source],
+      [LLM-generated + curated],
+      [Curated question bank],
 
-    [Personalisation],
-    [Updates mastery after each attempt],
-    [Selects tasks using predefined rules],
+      [Personalisation],
+      [Updates mastery after each attempt],
+      [Selects tasks using predefined rules],
 
-    [Advantages],
-    [Flexible adaptation and greater variety],
-    [Simpler, cheaper and easier to validate],
+      [Advantages],
+      [Flexible adaptation and greater variety],
+      [Simpler, cheaper and easier to validate],
 
-    [Limitations],
-    [Higher cost and validation complexity],
-    [Less flexible; manual question authoring],
-  )
-]
-
-#v(0.5em)
-
-#block(
-  fill: accent.lighten(85%),
-  inset: 8pt,
-  radius: 6pt,
-  width: 100%,
-)[
-  #text(size: 16pt, weight: "bold", fill: accent)[
-    Competitive advantage
+      [Limitations],
+      [Higher cost and validation complexity],
+      [Less flexible; manual question authoring],
+    )
   ]
 
-  #text(size: 14pt)[
-    Combines adaptive mastery tracking, validated code generation
-    and graduated hints in one feedback loop. Educational impact
-    still requires user testing.
+  #v(0.5em)
+
+  #block(
+    fill: accent.lighten(85%),
+    inset: 8pt,
+    radius: 6pt,
+    width: 100%,
+  )[
+    #text(size: 16pt, weight: "bold", fill: accent)[
+      Competitive advantage
+    ]
+
+    #text(size: 14pt)[
+      Combines adaptive mastery tracking, validated code generation
+      and graduated hints in one feedback loop. Educational impact
+      still requires user testing.
+    ]
   ]
 ]
 
- // ---------- 7. obstacles: external (1:00) ----------
+// ---------- 8. obstacles: external (1:00) ----------
 == Obstacles: external (PESTEL)
 
-#text(size: 15pt)[
-  PESTEL examines external factors beyond the project's direct control
-  (@openstax2019pestel).
-]
+#[
+  #set text(size: 15pt)
 
-#v(0.4em)
+  PESTEL examines external factors beyond the project's direct control @openstax2019pestel
 
-#set text(size: 15pt)
+  #v(0.4em)
 
-#table(
-  columns: (1fr, 3.5fr),
-  inset: 6pt,
-  align: (left, left),
-  stroke: (bottom: 0.5pt + gray),
+  #table(
+    columns: (1fr, 3.5fr),
+    inset: 6pt,
+    align: (left, left),
+    stroke: (bottom: 0.5pt + gray),
 
-  [*Factor*], [*Risk to Phronesis*],
+    [*Factor*], [*Risk to Phronesis*],
 
-  [Political],
-  [Changes in AI and education policy may affect deployment],
+    [Political],
+    [Changes in AI and education policy may affect deployment],
 
-  [Economic],
-  [LLM inference costs may limit affordable daily use],
+    [Economic],
+    [LLM inference costs may limit affordable daily use],
 
-  [Social],
-  [Learners may distrust AI feedback or over-rely on hints],
+    [Social],
+    [Learners may distrust AI feedback or over-rely on hints],
 
-  [Technological],
-  [Incorrect generated code or tests could teach misconceptions],
+    [Technological],
+    [Incorrect generated code or tests could teach misconceptions],
 
-  [Environmental],
-  [Repeated model inference consumes computing resources],
+    [Environmental],
+    [Repeated model inference consumes computing resources],
 
-  [Legal],
-  [UK GDPR and copyright obligations affect data and content],
-)
+    [Legal],
+    [UK GDPR and copyright obligations affect data and content],
+  )
 
-#v(0.4em)
+  #v(0.4em)
 
-#block(
-  fill: accent.lighten(90%),
-  inset: 8pt,
-  radius: 5pt,
-  width: 100%,
-)[
-  #text(size: 15pt)[
+  #block(
+    fill: accent.lighten(90%),
+    inset: 8pt,
+    radius: 5pt,
+    width: 100%,
+  )[
     #text(weight: "bold", fill: accent)[Mitigation strategy]
 
     Minimise personal data, validate generated tasks, monitor API costs
@@ -263,47 +264,47 @@ A simpler approach: a curated question bank with rules-based personalisation
   ]
 ]
 
- // ---------- 8. obstacles: internal (1:00) ----------
+// ---------- 9. obstacles: internal (1:00) ----------
 == Obstacles: internal
 
 #text(size: 15pt)[
-  Initial qualitative risk assessment; prioritise risks by likelihood and impact
-  (@tabassi2023airmf).
+  Initial qualitative risk assessment; prioritise risks by likelihood and impact @tabassi2023airmf
 ]
 
 #v(0.4em)
 
-#set text(size: 13pt)
+#[
+  #set text(size: 13pt)
 
-#table(
-  columns: (1.5fr, 0.75fr, 0.75fr, 2.4fr),
-  inset: 6pt,
-  align: (left, left, left, left),
-  stroke: (bottom: 0.5pt + gray),
+  #table(
+    columns: (1.5fr, 0.75fr, 0.75fr, 2.4fr),
+    inset: 6pt,
+    align: (left, left, left, left),
+    stroke: (bottom: 0.5pt + gray),
 
-  [*Risk*], [*Likelihood*], [*Impact*], [*Mitigation*],
+    [*Risk*], [*Likelihood*], [*Impact*], [*Mitigation*],
 
-  [Incorrect generated tasks],
-  [High], [High],
-  [Execute code, validate tests and review content],
+    [Incorrect generated tasks],
+    [High], [High],
+    [Execute code, validate tests and review content],
 
-  [Cold-start learner model],
-  [High], [Medium],
-  [Use a short diagnostic assessment and conservative priors],
+    [Cold-start learner model],
+    [High], [Medium],
+    [Use a short diagnostic assessment and conservative priors],
 
-  [Poor learner retention],
-  [Medium], [High],
-  [Short sessions, progress tracking and user testing],
+    [Poor learner retention],
+    [Medium], [High],
+    [Short sessions, progress tracking and user testing],
 
-  [API costs and capacity],
-  [Medium], [High],
-  [Usage limits, caching and appropriate model selection],
+    [API costs and capacity],
+    [Medium], [High],
+    [Usage limits, caching and appropriate model selection],
 
-  [Limited development time],
-  [High], [Medium],
-
-  [Build the core learning loop first; defer advanced features],
-)
+    [Limited development time],
+    [High], [Medium],
+    [Build the core learning loop first; defer advanced features],
+  )
+]
 
 #v(0.5em)
 
@@ -321,32 +322,36 @@ A simpler approach: a curated question bank with rules-based personalisation
   ]
 ]
 
- // ---------- 9. business case: initiative and benefits (1:00) ----------
+// ---------- 10. business case: initiative and value (1:00) ----------
 == Business case: initiative and value
 
 #grid(
   columns: (1fr, 1fr),
-  rows: (auto, auto),
+  rows: (105pt, 105pt),
   gutter: 0.8em,
 
   card(
     [Initiative],
     [Start as an internal learning pilot for novice programmers. Validate educational impact before wider investment.],
+    size: 15pt,
   ),
 
   card(
     [Learner value],
     [Build code comprehension, debugging and reasoning skills through targeted daily practice.],
+    size: 15pt,
   ),
 
   card(
     [Organisational value],
     [Track skill development and target learning support at individual weaknesses.],
+    size: 15pt,
   ),
 
   card(
     [Competitive advantage],
     [Combines mastery tracking, validated code tasks and graduated hints in one learning loop.],
+    size: 15pt,
   ),
 )
 
@@ -361,50 +366,36 @@ A simpler approach: a curated question bank with rules-based personalisation
   #text(size: 16pt, weight: "bold", fill: accent)[Path to scale]
 
   #text(size: 15pt)[
-    Internal pilot → interview and CTF preparation → corporate learning and development
+    Internal pilot, then interview and CTF preparation, then corporate learning and development
   ]
 ]
 
-// ---------- 10. business case: resources (0:45) ----------
+// ---------- 11. business case: resources (0:45) ----------
 == Business case: resources
 
 #grid(
   columns: (1fr, 1fr),
-  rows: (auto,),
+  rows: (200pt),
   gutter: 1em,
 
   card(
     [Short term: pilot],
     [
-      *People*
-
-      Solo developer; volunteer learners and an academic reviewer
-
-      *Technology*
-
-      Python, existing LLM API, SQLite, automated tests and a basic UI
-
-      *Costs*
-
-      Development time, API usage and hosting; minimise spend through usage limits
+      *People:* solo developer, volunteer learners and an academic reviewer \
+      *Technology:* Python, existing LLM API, SQLite, automated tests and a basic UI \
+      *Costs:* development time, API usage and hosting, kept down with usage limits
     ],
+    size: 14pt,
   ),
 
   card(
     [Long term: deployment],
     [
-      *People*
-
-      Software engineer, AI/ML expertise and learning-design support
-
-      *Technology*
-
-      Hosted backend, database, monitoring, authentication and secure execution sandbox
-
-      *Costs*
-
-      Hosting, model inference, maintenance, security and ongoing content validation
+      *People:* software engineer, AI/ML expertise and learning-design support \
+      *Technology:* hosted backend, database, monitoring, authentication and a secure execution sandbox \
+      *Costs:* hosting, model inference, maintenance, security and ongoing content validation
     ],
+    size: 14pt,
   ),
 )
 
@@ -416,15 +407,12 @@ A simpler approach: a curated question bank with rules-based personalisation
   radius: 6pt,
   width: 100%,
 )[
-  #text(size: 16pt, weight: "bold", fill: accent)[Build versus buy]
-
   #text(size: 15pt)[
-    Build the adaptive learning loop; use existing models and infrastructure
-    rather than training a foundation model from scratch.
+    *Build versus buy:* build the adaptive learning loop; use existing models and infrastructure rather than training a foundation model from scratch.
   ]
 ]
 
-// ---------- 11. conclusion (0:20) ----------
+// ---------- 12. conclusion (0:20) ----------
 == Conclusion
 
 #v(0.5em)
@@ -457,8 +445,12 @@ A simpler approach: a curated question bank with rules-based personalisation
   ]
 ]
 
-// ---------- 12. references (0:10) ----------
+// ---------- 13. references (0:10) ----------
 == References
 
-#set text(size: 14pt)
-#bibliography("refs.bib", title: none, style: "harvard-cite-them-right", full: true)
+#[
+  #set text(size: 12pt)
+  #columns(2, gutter: 1.5em)[
+    #bibliography("refs.bib", title: none, style: "harvard-cite-them-right", full: true)
+  ]
+]

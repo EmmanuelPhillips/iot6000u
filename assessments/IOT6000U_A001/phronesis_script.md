@@ -14,7 +14,7 @@ Interview platforms like LeetCode offer a huge fixed bank of problems, built aro
 
 Course platforms like Codecademy offer AI tutoring, but within a set curriculum.
 
-Research has traced learner progress for decades using knowledge tracing, but most models rely on quiz-style right or wrong data, which one review calls "insufficient to reflect a clear picture of students' learning process." [
+Research has traced learner progress for decades using knowledge tracing, but most models rely on quiz-style right or wrong data, which one review calls "insufficient to reflect a clear picture of students' learning process." 
 
 So the gap is adaptive practice aimed at comprehension: reading, tracing, and debugging code. In novice programmers, tracing and explaining skills are linked to the ability to write code.
 
@@ -42,11 +42,11 @@ This means the AI is sitting in three unique places: generation, hints and the l
 
 ## Alternative Solution Comparison
 
-There is a simpler alternative: a curated question bank with rule-based tagging. Each question labelle and fixed rules would select the next task based on previous mistakes the learner made.
+There is a simpler alternative: a curated question bank with rule-based tagging. Each question labelled and fixed rules would select the next task based on previous mistakes the learner made.
 
 This would be cheaper, easier to validate and more predictable, but it would require substantial manual authoring and offers less flexibility
 
-We trade that simplicity for more granular master tracking, the ability to generate additional validated tasks and have the competitive advantage of not just "using" ai, but combining many different things in order to have one feedback loop.
+We trade that simplicity for more granular mastery tracking, the ability to generate additional validated tasks and have the competitive advantage of not just "using" ai, but combining many different things in order to have one feedback loop.
 
 
 ## External Obstacles
